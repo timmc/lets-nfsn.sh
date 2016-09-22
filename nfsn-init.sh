@@ -7,7 +7,6 @@ declare single_cert='true'
 echo " + Cloning dehydrated git repository..."
 git submodule init
 git submodule update --remote
-mkdir -p dehydrated/.acme-challenges
 
 echo " + Generating configuration..."
 for site_root in $(nfsn list-aliases); do
