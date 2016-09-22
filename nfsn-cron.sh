@@ -8,10 +8,15 @@ cd "$(dirname "$0")"
 
 Verbose=0
 
-if [ "$1" = "-v" ]
-then
-	Verbose=1
-fi
+for Arg in $*
+do
+	if [ "${Arg}" = "-v" ]
+	then
+		Verbose=1
+	else
+		echo "Unknown argument: ${Arg}" >&2
+	fi
+done
 
 if [ $Verbose -gt 0 ]
 then
