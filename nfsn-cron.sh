@@ -10,6 +10,12 @@ echo " + Updating dehydrated..."
 git submodule update --remote
 cd dehydrated
 
+if [ ! -d certs ]
+then
+	echo "No certs directory. Have you run nfsn-setup.sh?"
+	exit 1
+fi
+
 echo " + Checking certificate expiration date..."
 if find certs -name cert.pem -type l \
 	-exec openssl x509 -checkend 2592000 -in {} \; |
