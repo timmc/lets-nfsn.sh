@@ -6,11 +6,24 @@ RealDir=`realpath "${Dir}"`
 
 cd "$(dirname "$0")"
 
-echo " + Updating lets-nfsn.sh..."
-git pull
+Verbose=0
 
-echo " + Updating dehydrated..."
+if [ "$1" = "-v" ]
+then
+	Verbose=1
+fi
+
+if [ $Verbose -gt 0 ]
+then
+	echo " + Updating lets-nfsn.sh..."
+	git pull
+else
+	git pull | fgrep -v 'Already up-to-date.'
+fi
+
+[ $Verbose -gt 0 ] && echo " + Updating dehydrated..."
 git submodule update --remote
+
 cd dehydrated
 
 if [ ! -d certs ]
@@ -19,7 +32,7 @@ then
 	exit 1
 fi
 
-echo " + Checking certificate expiration date..."
+[ $Verbose -gt 0 ] && echo " + Checking certificate expiration date..."
 if find certs -name cert.pem -type l \
 	-exec openssl x509 -checkend 2592000 -in {} \; |
 		grep -qF "Certificate will expire"; then
@@ -33,7 +46,7 @@ if find certs -name cert.pem -type l \
 	echo " + This error message will repeat daily."
 	exit 1
 else
-	echo " + More than 30 days until any certificate expires. Exiting."
+	[ $Verbose -gt 0 ] && echo " + More than 30 days until any certificate expires. Exiting."
 	exit 0
 fi
 
