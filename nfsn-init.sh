@@ -17,7 +17,6 @@ for site_root in $(nfsn list-aliases); do
       echo "WELLKNOWN='${WELLKNOWN}'" > "${CONFIGDIR}/config"
       echo " + Installing hook script..."
       echo "HOOK='$(realpath nfsn-hook.sh)'" >> "${CONFIGDIR}/config"
-      chmod +x nfsn-hook.sh
       unset single_cert
    fi
 done
@@ -28,7 +27,6 @@ if [[ "${single_cert:+true}" ]]; then
    echo "WELLKNOWN='${DOCUMENT_ROOT}${well_known}'" > dehydrated/config
    echo " + Installing hook script..."
    echo "HOOK='$(realpath nfsn-hook.sh)'" >> dehydrated/config
-   chmod +x nfsn-hook.sh
 fi
 
 echo " + Generating domains.txt..."
