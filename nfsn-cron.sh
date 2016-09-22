@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -o errexit -o nounset -o pipefail
 
+Dir=`dirname "$0"`
+RealDir=`realpath "${Dir}"`
+
 cd "$(dirname "$0")"
 
 echo " + Updating lets-nfsn.sh..."
@@ -20,10 +23,13 @@ echo " + Checking certificate expiration date..."
 if find certs -name cert.pem -type l \
 	-exec openssl x509 -checkend 2592000 -in {} \; |
 		grep -qF "Certificate will expire"; then
-	echo " + Certificte will expire in 30 days or less! SSH into this site and"
-	echo "   run the following commands to renew your certificates:"
-	echo "	cd ~/lets-nfsn.sh/dehydrated/"
-	echo "	./dehydrated --cron"
+	echo " + Certificate will expire in 30 days or less!"
+	echo " + Run this command to renew your certificates:"
+	echo
+	echo "   ${RealDir}/nfsn-renew.sh"
+	echo
+	echo " + You can use ssh or the \"Run Shell Command\" action on"
+	echo "   the Site Information Panel to run this command."
 	echo " + This error message will repeat daily."
 	exit 1
 else
