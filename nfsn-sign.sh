@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit -o nounset -o pipefail
 
-readonly well_known='.well-known/acme-challenge/'
-declare single_cert='true'
-
 echo " + Performing initial run..."
 dehydrated/dehydrated --cron
 
