@@ -41,21 +41,26 @@ fi
 [ $Verbose -gt 0 ] && echo " + Checking certificate expiration date..."
 if find certs -name cert.pem -type l \
 	-exec openssl x509 -checkend 2592000 -in {} \; |
-		grep -qF "Certificate will expire"; then
-	echo " + Certificate will expire in 30 days or less!"
-	echo " + Run this command to renew your certificates:"
-	echo
-	echo "   ${RealDir}/nfsn-renew.sh"
-	echo
-	echo " + You can use ssh or the \"Run Shell Command\" action on"
-	echo "   the Site Information Panel to run this command."
-	echo " + This error message will repeat daily."
-	exit 1
+		grep -qF "Certificate will expire"
+then
+	true
 else
 	[ $Verbose -gt 0 ] && echo " + More than 30 days until any certificate expires. Exiting."
 	exit 0
 fi
 
+##  Until we make the nfsn command work via cron.
+echo " + Certificate will expire in 30 days or less!"
+echo " + Run this command to renew your certificates:"
+echo
+echo "   ${RealDir}/nfsn-renew.sh"
+echo
+echo " + You can use ssh or the \"Run Shell Command\" action on"
+echo "   the Site Information Panel to run this command."
+echo " + This error message will repeat daily."
+exit 1
+
+##  Currently unreachable.
 echo " + Running dehydrated..."
 ./dehydrated --cron
 
