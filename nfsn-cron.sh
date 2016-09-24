@@ -14,7 +14,8 @@ do
 	then
 		Verbose=1
 	else
-		echo "Unknown argument: ${Arg}" >&2
+		echo "Unknown argument: ${Arg}"
+		exit 1
 	fi
 done
 
