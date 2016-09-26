@@ -24,7 +24,7 @@ then
 	echo " + Updating lets-nfsn.sh..."
 	git pull
 else
-	git pull | fgrep -v 'Already up-to-date.'
+	git pull | fgrep -v 'Already up-to-date.' || true
 fi
 
 [ $Verbose -gt 0 ] && echo " + Updating dehydrated..."
