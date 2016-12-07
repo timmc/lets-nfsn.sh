@@ -50,19 +50,20 @@ else
 fi
 
 ##  Until we make the nfsn command work via cron.
-echo " + Certificate will expire in 30 days or less!"
-echo " + Run this command to renew your certificates:"
-echo
-echo "   ${RealDir}/nfsn-renew.sh"
-echo
-echo " + You can use ssh or the \"Run Shell Command\" action on"
-echo "   the Site Information Panel to run this command."
-echo " + This error message will repeat daily."
-exit 1
+#echo " + Certificate will expire in 30 days or less!"
+#echo " + Run this command to renew your certificates:"
+#echo
+#echo "   ${RealDir}/nfsn-renew.sh"
+#echo
+#echo " + You can use ssh or the \"Run Shell Command\" action on"
+#echo "   the Site Information Panel to run this command."
+#echo " + This error message will repeat daily."
+#exit 1
 
-##  Currently unreachable.
+##  Renew certificate.
 echo " + Running dehydrated..."
 ./dehydrated --cron
 
 echo " + Cleaning up old certificates..."
 ./dehydrated --cleanup
+
