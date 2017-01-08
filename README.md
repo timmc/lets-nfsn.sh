@@ -1,6 +1,7 @@
 # Let's Encrypt automation for NearlyFreeSpeech
 
 ```sh
+cd /home/private
 git clone https://github.com/nfsn/lets-nfsn.sh.git
 cd lets-nfsn.sh
 ./nfsn-setup.sh
